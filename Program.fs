@@ -74,6 +74,17 @@ let rec findMin =
             let minTail = findMin T
             if H < minTail then H else minTail
 
+
+let rec findMaxMin list minSoFar maxSoFar= 
+    match list with
+    | Empty -> (minSoFar, maxSoFar)
+    | Node(head, tail)-> findMaxMin tail (min head minSoFar) (max head maxSoFar)
+
+let finMinMax list =
+    match list with
+    | Empty -> None
+    | Node(head,tail) -> Some (findMaxMin tail head head)
+
 //4. Napisz funkcję, która odwraca kolejność elementów listy.
 
 
@@ -127,6 +138,9 @@ let main argv =
     printf "\nNajmniejsza wartość w liście: %d" min
     let checkEl = checkElement userList
 
+    match finMinMax userList with
+        |Some(minVal,maxVal) ->printf"\nMin: %d, max: %d" minVal maxVal
+        |None ->printf"\nLista jest pusta"
 
 
     0
